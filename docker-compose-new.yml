@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: gestures_db
+    restart: always
+    environment:
+      POSTGRES_USER: gestures_user
+      POSTGRES_PASSWORD: gestures_pass_2026
+      POSTGRES_DB: gestures_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - gestures_data:/var/lib/postgresql/data
+    networks:
+      - gestures_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: gestures_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gestures.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin_secret
+    ports:
+      - "7070:80"
+    networks:
+      - gestures_network
+    depends_on:
+      - postgres
+
+volumes:
+  gestures_data:
+
+networks:
+  gestures_network:
+    driver: bridge
