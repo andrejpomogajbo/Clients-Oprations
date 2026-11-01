@@ -22,7 +22,7 @@ public class ClientController
     @PostMapping
     public ResponseEntity<ClientAccount> createClient(@Valid @RequestBody ClientCreateRequest request)
     {
-        return ResponseEntity.status(201).body(service.createClient(request));
+        return ResponseEntity.status(200).body(service.createClient(request));
     }
 
     @GetMapping
@@ -35,6 +35,14 @@ public class ClientController
     public ResponseEntity<ClientAccount> getClientById(@PathVariable Long id)
     {
         return service.getClientById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientAccount> updateClient(@PathVariable Long id, @Valid @RequestBody ClientCreateRequest request)
+    {
+        return service.updateClient(id, request)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }

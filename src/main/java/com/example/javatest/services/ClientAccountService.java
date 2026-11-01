@@ -36,6 +36,17 @@ public class ClientAccountService
         return repository.findById(id);
     }
 
+    public Optional<ClientAccount> updateClient(Long id, ClientCreateRequest request)
+    {
+        return repository.findById(id)
+            .map(client -> {
+                if (request.getFullName() != null) client.setFullName(request.getFullName());
+                if (request.getGender() != null) client.setGender(request.getGender());
+                if (request.getStatus() != null) client.setStatus(request.getStatus());
+                return repository.save(client);
+            });
+    }
+
     public Optional<ClientAccount> deleteClientById(Long id)
     {
         return repository.findById(id)
