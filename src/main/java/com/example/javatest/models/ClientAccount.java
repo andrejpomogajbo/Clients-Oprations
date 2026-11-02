@@ -1,7 +1,9 @@
 package com.example.javatest.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.Instant;
 
 @Entity
@@ -9,8 +11,6 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ClientAccount extends BaseEntity
 {
     @Column(length = 1)
